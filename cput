@@ -141,6 +141,8 @@ elif [ $1 = hsetb ]; then
  g=$(printf "%d" "0x$(echo $2 | cut -c 3-4)")
  b=$(printf "%d" "0x$(echo $2 | cut -c 5-6)")
  rgbputb $r $g $b
+elif [ $1 = clear ]; then
+  printf "\033c"
 else
  modeput 0 31; echo Error: unknow subcommand, printing help...
  printhelp
