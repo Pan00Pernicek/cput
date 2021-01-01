@@ -31,6 +31,12 @@ etc:
 modeput() {
  printf "\033[$1;$2m"
 }
+rgbputf() {
+ printf "\033[38;2;$1;$2;$3m"
+}
+rgbputb() {
+ printf "\033[48;2;$1;$2;$3m"
+}
 if [ -z $1 ]; then
  printhelp
 elif [ $1 = rsetf ]; then
@@ -79,7 +85,7 @@ elif [ $1 = setaf ]; then
  elif [ $2 = 16 ]; then
   modeput 0 98
  else
-  modeput 0 31;echo unknown color
+  modeput 0 31;echo cput::tput-mode: unknown color
  fi
 elif [ $1 = setab ]; then
  if [ $2 = 0 ]; then
@@ -116,8 +122,8 @@ elif [ $1 = setab ]; then
   modeput 0 107
  elif [ $2 = 16 ]; then
   modeput 0 108
- elif
-  modeput 0 41;echo unknown color
+ else
+  modeput 0 41;echo cput::tput-mode: unknown color
  fi
 elif [ $1 = sgr0 ]; then
  modeput 0 0
@@ -125,8 +131,17 @@ elif [ $1 = patch ]; then
  sed -i 's/tput/cput/g' $2
 elif [ $1 = cup ]; then
  printf "\033[$2;$3H"
+elif [ $1 = hsetf ]; then
+ r=$(printf "%d" "0x$(echo $2 | cut -c 1-2)")
+ g=$(printf "%d" "0x$(echo $2 | cut -c 3-4)")
+ b=$(printf "%d" "0x$(echo $2 | cut -c 5-6)")
+ rgbputf $r $g $b
+elif [ $1 = hsetb ]; then
+ r=$(printf "%d" "0x$(echo $2 | cut -c 1-2)")
+ g=$(printf "%d" "0x$(echo $2 | cut -c 3-4)")
+ b=$(printf "%d" "0x$(echo $2 | cut -c 5-6)")
+ rgbputb $r $g $b
 else
  modeput 0 31; echo Error: unknow subcommand, printing help...
  printhelp
 fi
- 
