@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 printhelp() {
- echo "$(sh cput rsetf 255 180 70)Usage: cput [command] $(sh cput set 0 0)
+ echo "$(cput rsetf 255 180 70)Usage: cput [command] $(cput set 0 0)
 colors:::
  16 colors::
   native:
