@@ -20,9 +20,11 @@ colors:::
   hex format:
    hsetf - set foreground color
    hsetb - set background color
-cursor:::
+cursor::
  moving:
   cup - moves cursor to given position
+etc:
+ patch - replaces tput in script with cput (does not always work)
  "
 }
 ##colors
@@ -76,6 +78,8 @@ elif [ $1 = setaf ]; then
   modeput 0 97
  elif [ $2 = 16 ]; then
   modeput 0 98
+ else
+  modeput 0 31;echo unknown color
  fi
 elif [ $1 = setab ]; then
  if [ $2 = 0 ]; then
@@ -112,11 +116,13 @@ elif [ $1 = setab ]; then
   modeput 0 107
  elif [ $2 = 16 ]; then
   modeput 0 108
+ elif
+  modeput 0 41;echo unknown color
  fi
 elif [ $1 = sgr0 ]; then
  modeput 0 0
 elif [ $1 = patch ]; then
- sed -i 's/tput/sh cput/g' $2
+ sed -i 's/tput/cput/g' $2
 elif [ $1 = cup ]; then
  printf "\033[$2;$3H"
 else
