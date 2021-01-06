@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 printhelp() {
  echo "$(cput rsetf 255 180 70)Usage: cput [command] $(cput set 0 0)
-colors:::
- 16 colors::
+colors:
+ 16 colors:
   native:
    set - set color and property
    set 0 0 - reset terminal
@@ -10,21 +10,24 @@ colors:::
    setaf - set foreground color
    setab - set background color
    sgr0 - reset terminal
-  256 colors::
+  256 colors:
   esetf - set foreground color 
   esetb - set backgroud color
- 24-bit colors::
+ 24-bit colors:
   rgb format:
    rsetf - set foreground color
    rsetb - set background color
   hex format:
    hsetf - set foreground color
    hsetb - set background color
-cursor::
+cursor:
  moving:
   cup - moves cursor to given position
 etc:
  patch - replaces tput in script with cput (does not always work)
+info: (stty based)
+ cols - width of terminal
+ lines - height of terminal
  "
 }
 ##colors
@@ -143,6 +146,10 @@ elif [ $1 = hsetb ]; then
  rgbputb $r $g $b
 elif [ $1 = clear ]; then
   printf "\033c"
+elif [ $1 = cols ]; then
+ stty size | cut -d" " -f2
+elif [ $1 = lines ]; then
+ stty size | cut -d" " -f1
 else
  modeput 0 31; echo Error: unknow subcommand, printing help...
  printhelp
