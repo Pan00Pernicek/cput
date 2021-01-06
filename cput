@@ -88,7 +88,7 @@ elif [ $1 = setaf ]; then
  elif [ $2 = 16 ]; then
   modeput 0 98
  else
-  modeput 0 31;echo cput::tput-mode: unknown color
+  modeput 0 31;echo cput: tput-mode: unknown color; modeput 0 0
  fi
 elif [ $1 = setab ]; then
  if [ $2 = 0 ]; then
@@ -126,7 +126,7 @@ elif [ $1 = setab ]; then
  elif [ $2 = 16 ]; then
   modeput 0 108
  else
-  modeput 0 41;echo cput::tput-mode: unknown color
+  modeput 0 41;echo cput: tput-mode: unknown color; modeput 0 0
  fi
 elif [ $1 = sgr0 ]; then
  modeput 0 0
