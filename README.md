@@ -4,4 +4,6 @@ Having bloated binary file just to change terminal properties is kinda useless w
 
 Utility/script to quicky change cursor properties such as color or position.
 
-Tput mode: emulates tput 
+Tput mode: emulates tput, like: setaf setab sgr0 cols lines cup
+
+Can repleace tput using `patch` subcommand that replaces "tput" with "cput" in selected file
